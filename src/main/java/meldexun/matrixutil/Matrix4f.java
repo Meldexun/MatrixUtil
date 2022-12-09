@@ -128,7 +128,6 @@ public class Matrix4f {
 		stringbuilder.append(this.m32);
 		stringbuilder.append(" ");
 		stringbuilder.append(this.m33);
-		stringbuilder.append("\n");
 		return stringbuilder.toString();
 	}
 
