@@ -396,6 +396,73 @@ public class Matrix4f {
 		return matrix4f;
 	}
 
+	public static Matrix4f createRotateMatrix(Quaternion quaternion) {
+		Matrix4f matrix4f = new Matrix4f();
+		float xx = 2.0F * quaternion.x * quaternion.x;
+		float yy = 2.0F * quaternion.y * quaternion.y;
+		float zz = 2.0F * quaternion.z * quaternion.z;
+		float xy = quaternion.x * quaternion.y;
+		float yz = quaternion.y * quaternion.z;
+		float zx = quaternion.z * quaternion.x;
+		float xw = quaternion.x * quaternion.w;
+		float yw = quaternion.y * quaternion.w;
+		float zw = quaternion.z * quaternion.w;
+
+		matrix4f.m00 = 1.0F - yy - zz;
+		matrix4f.m11 = 1.0F - zz - xx;
+		matrix4f.m22 = 1.0F - xx - yy;
+		matrix4f.m33 = 1.0F;
+		matrix4f.m10 = 2.0F * (xy + zw);
+		matrix4f.m01 = 2.0F * (xy - zw);
+		matrix4f.m20 = 2.0F * (zx - yw);
+		matrix4f.m02 = 2.0F * (zx + yw);
+		matrix4f.m21 = 2.0F * (yz + xw);
+		matrix4f.m12 = 2.0F * (yz - xw);
+		return matrix4f;
+	}
+
+	public static Matrix4f createRotateXMatrix(Quaternion quaternion) {
+		Matrix4f matrix4f = new Matrix4f();
+		float xx = 2.0F * quaternion.x * quaternion.x;
+		float xw = quaternion.x * quaternion.w;
+
+		matrix4f.m00 = 1.0F;
+		matrix4f.m11 = 1.0F - xx;
+		matrix4f.m22 = 1.0F - xx;
+		matrix4f.m33 = 1.0F;
+		matrix4f.m21 = 2.0F * xw;
+		matrix4f.m12 = 2.0F * -xw;
+		return matrix4f;
+	}
+
+	public static Matrix4f createRotateYMatrix(Quaternion quaternion) {
+		Matrix4f matrix4f = new Matrix4f();
+		float yy = 2.0F * quaternion.y * quaternion.y;
+		float yw = quaternion.y * quaternion.w;
+
+		matrix4f.m00 = 1.0F - yy;
+		matrix4f.m11 = 1.0F;
+		matrix4f.m22 = 1.0F - yy;
+		matrix4f.m33 = 1.0F;
+		matrix4f.m20 = 2.0F * -yw;
+		matrix4f.m02 = 2.0F * yw;
+		return matrix4f;
+	}
+
+	public static Matrix4f createRotateZMatrix(Quaternion quaternion) {
+		Matrix4f matrix4f = new Matrix4f();
+		float zz = 2.0F * quaternion.z * quaternion.z;
+		float zw = quaternion.z * quaternion.w;
+
+		matrix4f.m00 = 1.0F - zz;
+		matrix4f.m11 = 1.0F - zz;
+		matrix4f.m22 = 1.0F;
+		matrix4f.m33 = 1.0F;
+		matrix4f.m10 = 2.0F * zw;
+		matrix4f.m01 = 2.0F * -zw;
+		return matrix4f;
+	}
+
 	public void translate(float x, float y, float z) {
 		this.m03 += this.m00 * x + this.m01 * y + this.m02 * z;
 		this.m13 += this.m10 * x + this.m11 * y + this.m12 * z;
