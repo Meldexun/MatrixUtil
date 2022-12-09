@@ -132,85 +132,45 @@ public class Matrix4f {
 	}
 
 	public void store(FloatBuffer buf) {
-		Unsafe unsafe = UnsafeUtil.instance();
-
-		if (unsafe != null) {
-			long addr = MemoryUtil.getAddress(buf);
-			unsafe.putFloat(addr + 0, this.m00);
-			unsafe.putFloat(addr + 4, this.m10);
-			unsafe.putFloat(addr + 8, this.m20);
-			unsafe.putFloat(addr + 12, this.m30);
-			unsafe.putFloat(addr + 16, this.m01);
-			unsafe.putFloat(addr + 20, this.m11);
-			unsafe.putFloat(addr + 24, this.m21);
-			unsafe.putFloat(addr + 28, this.m31);
-			unsafe.putFloat(addr + 32, this.m02);
-			unsafe.putFloat(addr + 36, this.m12);
-			unsafe.putFloat(addr + 40, this.m22);
-			unsafe.putFloat(addr + 44, this.m32);
-			unsafe.putFloat(addr + 48, this.m03);
-			unsafe.putFloat(addr + 52, this.m13);
-			unsafe.putFloat(addr + 56, this.m23);
-			unsafe.putFloat(addr + 60, this.m33);
-		} else {
-			buf.put(0, this.m00);
-			buf.put(1, this.m10);
-			buf.put(2, this.m20);
-			buf.put(3, this.m30);
-			buf.put(4, this.m01);
-			buf.put(5, this.m11);
-			buf.put(6, this.m21);
-			buf.put(7, this.m31);
-			buf.put(8, this.m02);
-			buf.put(9, this.m12);
-			buf.put(10, this.m22);
-			buf.put(11, this.m32);
-			buf.put(12, this.m03);
-			buf.put(13, this.m13);
-			buf.put(14, this.m23);
-			buf.put(15, this.m33);
-		}
+		Unsafe unsafe = UnsafeUtil.UNSAFE;
+		long addr = MemoryUtil.getAddress(buf);
+		unsafe.putFloat(addr, this.m00);
+		unsafe.putFloat(addr + 4, this.m10);
+		unsafe.putFloat(addr + 8, this.m20);
+		unsafe.putFloat(addr + 12, this.m30);
+		unsafe.putFloat(addr + 16, this.m01);
+		unsafe.putFloat(addr + 20, this.m11);
+		unsafe.putFloat(addr + 24, this.m21);
+		unsafe.putFloat(addr + 28, this.m31);
+		unsafe.putFloat(addr + 32, this.m02);
+		unsafe.putFloat(addr + 36, this.m12);
+		unsafe.putFloat(addr + 40, this.m22);
+		unsafe.putFloat(addr + 44, this.m32);
+		unsafe.putFloat(addr + 48, this.m03);
+		unsafe.putFloat(addr + 52, this.m13);
+		unsafe.putFloat(addr + 56, this.m23);
+		unsafe.putFloat(addr + 60, this.m33);
 	}
 
 	public void load(FloatBuffer buf) {
-		Unsafe unsafe = UnsafeUtil.instance();
-
-		if (unsafe != null) {
-			long addr = MemoryUtil.getAddress(buf);
-			this.m00 = unsafe.getFloat(addr);
-			this.m10 = unsafe.getFloat(addr + 4);
-			this.m20 = unsafe.getFloat(addr + 8);
-			this.m30 = unsafe.getFloat(addr + 12);
-			this.m01 = unsafe.getFloat(addr + 16);
-			this.m11 = unsafe.getFloat(addr + 20);
-			this.m21 = unsafe.getFloat(addr + 24);
-			this.m31 = unsafe.getFloat(addr + 28);
-			this.m02 = unsafe.getFloat(addr + 32);
-			this.m12 = unsafe.getFloat(addr + 36);
-			this.m22 = unsafe.getFloat(addr + 40);
-			this.m32 = unsafe.getFloat(addr + 44);
-			this.m03 = unsafe.getFloat(addr + 48);
-			this.m13 = unsafe.getFloat(addr + 52);
-			this.m23 = unsafe.getFloat(addr + 56);
-			this.m33 = unsafe.getFloat(addr + 60);
-		} else {
-			this.m00 = buf.get(0);
-			this.m10 = buf.get(1);
-			this.m20 = buf.get(2);
-			this.m30 = buf.get(3);
-			this.m01 = buf.get(4);
-			this.m11 = buf.get(5);
-			this.m21 = buf.get(6);
-			this.m31 = buf.get(7);
-			this.m02 = buf.get(8);
-			this.m12 = buf.get(9);
-			this.m22 = buf.get(10);
-			this.m32 = buf.get(11);
-			this.m03 = buf.get(12);
-			this.m13 = buf.get(13);
-			this.m23 = buf.get(14);
-			this.m33 = buf.get(15);
-		}
+		Unsafe unsafe = UnsafeUtil.UNSAFE;
+		long addr = MemoryUtil.getAddress(buf);
+		this.m00 = unsafe.getFloat(addr);
+		this.m10 = unsafe.getFloat(addr + 4);
+		this.m20 = unsafe.getFloat(addr + 8);
+		this.m30 = unsafe.getFloat(addr + 12);
+		this.m01 = unsafe.getFloat(addr + 16);
+		this.m11 = unsafe.getFloat(addr + 20);
+		this.m21 = unsafe.getFloat(addr + 24);
+		this.m31 = unsafe.getFloat(addr + 28);
+		this.m02 = unsafe.getFloat(addr + 32);
+		this.m12 = unsafe.getFloat(addr + 36);
+		this.m22 = unsafe.getFloat(addr + 40);
+		this.m32 = unsafe.getFloat(addr + 44);
+		this.m03 = unsafe.getFloat(addr + 48);
+		this.m13 = unsafe.getFloat(addr + 52);
+		this.m23 = unsafe.getFloat(addr + 56);
+		this.m33 = unsafe.getFloat(addr + 60);
 	}
 
 	public void setIdentity() {
