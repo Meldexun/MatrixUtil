@@ -189,53 +189,6 @@ public class Matrix4f {
 		this.m33 = 1.0F;
 	}
 
-	public float adjugateAndDet() {
-		float f = this.m00 * this.m11 - this.m01 * this.m10;
-		float f1 = this.m00 * this.m12 - this.m02 * this.m10;
-		float f2 = this.m00 * this.m13 - this.m03 * this.m10;
-		float f3 = this.m01 * this.m12 - this.m02 * this.m11;
-		float f4 = this.m01 * this.m13 - this.m03 * this.m11;
-		float f5 = this.m02 * this.m13 - this.m03 * this.m12;
-		float f6 = this.m20 * this.m31 - this.m21 * this.m30;
-		float f7 = this.m20 * this.m32 - this.m22 * this.m30;
-		float f8 = this.m20 * this.m33 - this.m23 * this.m30;
-		float f9 = this.m21 * this.m32 - this.m22 * this.m31;
-		float f10 = this.m21 * this.m33 - this.m23 * this.m31;
-		float f11 = this.m22 * this.m33 - this.m23 * this.m32;
-		float f12 = this.m11 * f11 - this.m12 * f10 + this.m13 * f9;
-		float f13 = -this.m10 * f11 + this.m12 * f8 - this.m13 * f7;
-		float f14 = this.m10 * f10 - this.m11 * f8 + this.m13 * f6;
-		float f15 = -this.m10 * f9 + this.m11 * f7 - this.m12 * f6;
-		float f16 = -this.m01 * f11 + this.m02 * f10 - this.m03 * f9;
-		float f17 = this.m00 * f11 - this.m02 * f8 + this.m03 * f7;
-		float f18 = -this.m00 * f10 + this.m01 * f8 - this.m03 * f6;
-		float f19 = this.m00 * f9 - this.m01 * f7 + this.m02 * f6;
-		float f20 = this.m31 * f5 - this.m32 * f4 + this.m33 * f3;
-		float f21 = -this.m30 * f5 + this.m32 * f2 - this.m33 * f1;
-		float f22 = this.m30 * f4 - this.m31 * f2 + this.m33 * f;
-		float f23 = -this.m30 * f3 + this.m31 * f1 - this.m32 * f;
-		float f24 = -this.m21 * f5 + this.m22 * f4 - this.m23 * f3;
-		float f25 = this.m20 * f5 - this.m22 * f2 + this.m23 * f1;
-		float f26 = -this.m20 * f4 + this.m21 * f2 - this.m23 * f;
-		float f27 = this.m20 * f3 - this.m21 * f1 + this.m22 * f;
-		this.m00 = f12;
-		this.m10 = f13;
-		this.m20 = f14;
-		this.m30 = f15;
-		this.m01 = f16;
-		this.m11 = f17;
-		this.m21 = f18;
-		this.m31 = f19;
-		this.m02 = f20;
-		this.m12 = f21;
-		this.m22 = f22;
-		this.m32 = f23;
-		this.m03 = f24;
-		this.m13 = f25;
-		this.m23 = f26;
-		this.m33 = f27;
-		return f * f11 - f1 * f10 + f2 * f9 + f3 * f8 - f4 * f7 + f5 * f6;
-	}
 
 	public void transpose() {
 		float f = this.m10;
@@ -259,13 +212,56 @@ public class Matrix4f {
 	}
 
 	public boolean invert() {
-		float f = this.adjugateAndDet();
-		if (Math.abs(f) > 1.0E-6F) {
-			this.multiply(f);
-			return true;
-		} else {
+		float a00 = this.m00;
+		float a01 = this.m01;
+		float a02 = this.m02;
+		float a03 = this.m03;
+		float a10 = this.m10;
+		float a11 = this.m11;
+		float a12 = this.m12;
+		float a13 = this.m13;
+		float a20 = this.m20;
+		float a21 = this.m21;
+		float a22 = this.m22;
+		float a23 = this.m23;
+		float a30 = this.m30;
+		float a31 = this.m31;
+		float a32 = this.m32;
+		float a33 = this.m33;
+		float d001 = a00 * a11 - a01 * a10;
+		float d002 = a00 * a12 - a02 * a10;
+		float d003 = a00 * a13 - a03 * a10;
+		float d012 = a01 * a12 - a02 * a11;
+		float d013 = a01 * a13 - a03 * a11;
+		float d023 = a02 * a13 - a03 * a12;
+		float d101 = a20 * a31 - a21 * a30;
+		float d102 = a20 * a32 - a22 * a30;
+		float d103 = a20 * a33 - a23 * a30;
+		float d112 = a21 * a32 - a22 * a31;
+		float d113 = a21 * a33 - a23 * a31;
+		float d123 = a22 * a33 - a23 * a32;
+		float d = d001 * d123 - d002 * d113 + d003 * d112 + d012 * d103 - d013 * d102 + d023 * d101;
+		if (d == 0.0F) {
 			return false;
 		}
+		float f = 1.0F / d;
+		this.m00 =  (a11 * d123 - a12 * d113 + a13 * d112) * f;
+		this.m10 = -(a10 * d123 - a12 * d103 + a13 * d102) * f;
+		this.m20 =  (a10 * d113 - a11 * d103 + a13 * d101) * f;
+		this.m30 = -(a10 * d112 - a11 * d102 + a12 * d101) * f;
+		this.m01 = -(a01 * d123 - a02 * d113 + a03 * d112) * f;
+		this.m11 =  (a00 * d123 - a02 * d103 + a03 * d102) * f;
+		this.m21 = -(a00 * d113 - a01 * d103 + a03 * d101) * f;
+		this.m31 =  (a00 * d112 - a01 * d102 + a02 * d101) * f;
+		this.m02 =  (a31 * d023 - a32 * d013 + a33 * d012) * f;
+		this.m12 = -(a30 * d023 - a32 * d003 + a33 * d002) * f;
+		this.m22 =  (a30 * d013 - a31 * d003 + a33 * d001) * f;
+		this.m32 = -(a30 * d012 - a31 * d002 + a32 * d001) * f;
+		this.m03 = -(a21 * d023 - a22 * d013 + a23 * d012) * f;
+		this.m13 =  (a20 * d023 - a22 * d003 + a23 * d002) * f;
+		this.m23 = -(a20 * d013 - a21 * d003 + a23 * d001) * f;
+		this.m33 =  (a20 * d012 - a21 * d002 + a22 * d001) * f;
+		return true;
 	}
 
 	public void multiply(Matrix4f matrix) {
