@@ -189,6 +189,53 @@ public class Matrix4f {
 		this.m33 = 1.0F;
 	}
 
+	public void adjugate() {
+		float a00 = this.m00;
+		float a01 = this.m01;
+		float a02 = this.m02;
+		float a03 = this.m03;
+		float a10 = this.m10;
+		float a11 = this.m11;
+		float a12 = this.m12;
+		float a13 = this.m13;
+		float a20 = this.m20;
+		float a21 = this.m21;
+		float a22 = this.m22;
+		float a23 = this.m23;
+		float a30 = this.m30;
+		float a31 = this.m31;
+		float a32 = this.m32;
+		float a33 = this.m33;
+		float d001 = a00 * a11 - a01 * a10;
+		float d002 = a00 * a12 - a02 * a10;
+		float d003 = a00 * a13 - a03 * a10;
+		float d012 = a01 * a12 - a02 * a11;
+		float d013 = a01 * a13 - a03 * a11;
+		float d023 = a02 * a13 - a03 * a12;
+		float d101 = a20 * a31 - a21 * a30;
+		float d102 = a20 * a32 - a22 * a30;
+		float d103 = a20 * a33 - a23 * a30;
+		float d112 = a21 * a32 - a22 * a31;
+		float d113 = a21 * a33 - a23 * a31;
+		float d123 = a22 * a33 - a23 * a32;
+		this.m00 =  (a11 * d123 - a12 * d113 + a13 * d112);
+		this.m10 = -(a10 * d123 - a12 * d103 + a13 * d102);
+		this.m20 =  (a10 * d113 - a11 * d103 + a13 * d101);
+		this.m30 = -(a10 * d112 - a11 * d102 + a12 * d101);
+		this.m01 = -(a01 * d123 - a02 * d113 + a03 * d112);
+		this.m11 =  (a00 * d123 - a02 * d103 + a03 * d102);
+		this.m21 = -(a00 * d113 - a01 * d103 + a03 * d101);
+		this.m31 =  (a00 * d112 - a01 * d102 + a02 * d101);
+		this.m02 =  (a31 * d023 - a32 * d013 + a33 * d012);
+		this.m12 = -(a30 * d023 - a32 * d003 + a33 * d002);
+		this.m22 =  (a30 * d013 - a31 * d003 + a33 * d001);
+		this.m32 = -(a30 * d012 - a31 * d002 + a32 * d001);
+		this.m03 = -(a21 * d023 - a22 * d013 + a23 * d012);
+		this.m13 =  (a20 * d023 - a22 * d003 + a23 * d002);
+		this.m23 = -(a20 * d013 - a21 * d003 + a23 * d001);
+		this.m33 =  (a20 * d012 - a21 * d002 + a22 * d001);
+	}
+
 
 	public void transpose() {
 		float f = this.m10;
