@@ -2,7 +2,6 @@ package meldexun.matrixutil;
 
 import java.nio.FloatBuffer;
 
-import net.minecraft.util.math.MathHelper;
 import sun.misc.Unsafe;
 
 public class Matrix4f {
@@ -419,43 +418,17 @@ public class Matrix4f {
 		this.m32 *= z;
 	}
 
-	public void rotate(float radian, float x, float y, float z) {
-		if (radian == 0.0F)
-			return;
-		if (x == 0.0F) {
-			if (y == 0.0F) {
-				if (z == 0.0F) {
-					return;
-				} else {
-					this.rotateZ(radian, z);
-					return;
-				}
-			} else if (z == 0.0F) {
-				this.rotateY(radian, y);
-				return;
-			}
-		} else if (y == 0.0F && z == 0.0F) {
-			this.rotateX(radian, x);
-			return;
-		}
-
-		// setup quaternion
-		float q = MathHelper.sin(radian * 0.5F);
-		float qx = x * q;
-		float qy = y * q;
-		float qz = z * q;
-		float qw = MathHelper.cos(radian * 0.5F);
-
+	public void rotate(Quaternion quaternion) {
 		// setup rotation matrix
-		float xx = 2.0F * qx * qx;
-		float yy = 2.0F * qy * qy;
-		float zz = 2.0F * qz * qz;
-		float xy = qx * qy;
-		float yz = qy * qz;
-		float zx = qz * qx;
-		float xw = qx * qw;
-		float yw = qy * qw;
-		float zw = qz * qw;
+		float xx = 2.0F * quaternion.x * quaternion.x;
+		float yy = 2.0F * quaternion.y * quaternion.y;
+		float zz = 2.0F * quaternion.z * quaternion.z;
+		float xy = quaternion.x * quaternion.y;
+		float yz = quaternion.y * quaternion.z;
+		float zx = quaternion.z * quaternion.x;
+		float xw = quaternion.x * quaternion.w;
+		float yw = quaternion.y * quaternion.w;
+		float zw = quaternion.z * quaternion.w;
 
 		float r00 = 1.0F - yy - zz;
 		float r11 = 1.0F - zz - xx;
@@ -495,17 +468,10 @@ public class Matrix4f {
 		this.m32 = f30 * r02 + f31 * r12 + f32 * r22;
 	}
 
-	public void rotateX(float radian, float x) {
-		if (radian == 0.0F || x == 0.0F)
-			return;
-
-		// setup quaternion
-		float qx = x * MathHelper.sin(radian * 0.5F);
-		float qw = MathHelper.cos(radian * 0.5F);
-
+	public void rotateX(Quaternion quaternion) {
 		// setup rotation matrix
-		float xx = 2.0F * qx * qx;
-		float xw = qx * qw;
+		float xx = 2.0F * quaternion.x * quaternion.x;
+		float xw = quaternion.x * quaternion.w;
 
 		float r11 = 1.0F - xx;
 		float r22 = 1.0F - xx;
@@ -532,17 +498,10 @@ public class Matrix4f {
 		this.m32 = f31 * r12 + f32 * r22;
 	}
 
-	public void rotateY(float radian, float y) {
-		if (radian == 0.0F || y == 0.0F)
-			return;
-
-		// setup quaternion
-		float qy = y * MathHelper.sin(radian * 0.5F);
-		float qw = MathHelper.cos(radian * 0.5F);
-
+	public void rotateY(Quaternion quaternion) {
 		// setup rotation matrix
-		float yy = 2.0F * qy * qy;
-		float yw = qy * qw;
+		float yy = 2.0F * quaternion.y * quaternion.y;
+		float yw = quaternion.y * quaternion.w;
 
 		float r00 = 1.0F - yy;
 		float r22 = 1.0F - yy;
@@ -569,17 +528,10 @@ public class Matrix4f {
 		this.m32 = f30 * r02 + f32 * r22;
 	}
 
-	public void rotateZ(float radian, float z) {
-		if (radian == 0.0F || z == 0.0F)
-			return;
-
-		// setup quaternion
-		float qz = z * MathHelper.sin(radian * 0.5F);
-		float qw = MathHelper.cos(radian * 0.5F);
-
+	public void rotateZ(Quaternion quaternion) {
 		// setup rotation matrix
-		float zz = 2.0F * qz * qz;
-		float zw = qz * qw;
+		float zz = 2.0F * quaternion.z * quaternion.z;
+		float zw = quaternion.z * quaternion.w;
 
 		float r00 = 1.0F - zz;
 		float r11 = 1.0F - zz;

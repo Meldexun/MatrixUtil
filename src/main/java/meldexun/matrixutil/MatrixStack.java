@@ -31,20 +31,20 @@ public class MatrixStack {
 		this.stack.getLast().scale(x, y, z);
 	}
 
-	public void rotate(float radian, float x, float y, float z) {
-		this.stack.getLast().rotate(radian, x, y, z);
+	public void rotate(Quaternion quaternion) {
+		this.stack.getLast().rotate(quaternion);
 	}
 
-	public void rotateX(float radian, float x) {
-		this.stack.getLast().rotateX(radian, x);
+	public void rotateX(Quaternion quaternion) {
+		this.stack.getLast().rotateX(quaternion);
 	}
 
-	public void rotateY(float radian, float y) {
-		this.stack.getLast().rotateY(radian, y);
+	public void rotateY(Quaternion quaternion) {
+		this.stack.getLast().rotateY(quaternion);
 	}
 
-	public void rotateZ(float radian, float z) {
-		this.stack.getLast().rotateZ(radian, z);
+	public void rotateZ(Quaternion quaternion) {
+		this.stack.getLast().rotateZ(quaternion);
 	}
 
 }
