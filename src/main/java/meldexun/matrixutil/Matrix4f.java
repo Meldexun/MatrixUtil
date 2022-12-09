@@ -2,8 +2,6 @@ package meldexun.matrixutil;
 
 import java.nio.FloatBuffer;
 
-import org.lwjgl.MemoryUtil;
-
 import net.minecraft.util.math.MathHelper;
 import sun.misc.Unsafe;
 
