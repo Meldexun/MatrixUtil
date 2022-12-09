@@ -1,29 +1,28 @@
 package meldexun.matrixutil;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.stream.Stream;
 
 import sun.misc.Unsafe;
 
 public class UnsafeUtil {
 
-	private static final Unsafe UNSAFE;
+	public static final Unsafe UNSAFE;
 
 	static {
-		UNSAFE = findUnsafe();
-	}
-
-	private static Unsafe findUnsafe() {
 		try {
-			Field field = Unsafe.class.getDeclaredField("theUnsafe");
+			Field field = Stream.of(Unsafe.class.getDeclaredFields())
+					.filter(f -> f.getType() == Unsafe.class)
+					.filter(f -> Modifier.isStatic(f.getModifiers()))
+					.filter(f -> Modifier.isFinal(f.getModifiers()))
+					.findFirst()
+					.orElseThrow(NullPointerException::new);
 			field.setAccessible(true);
-			return (Unsafe) field.get(null);
-		} catch (ReflectiveOperationException e) {
-			return null;
+			UNSAFE = (Unsafe) field.get(null);
+		} catch (Exception e) {
+			throw new UnsupportedOperationException("Failed to find sun.misc.Unsafe instance");
 		}
-	}
-
-	public static Unsafe instance() {
-		return UNSAFE;
 	}
 
 }
