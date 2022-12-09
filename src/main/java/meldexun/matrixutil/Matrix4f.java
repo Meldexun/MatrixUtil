@@ -236,6 +236,37 @@ public class Matrix4f {
 		this.m33 =  (a20 * d012 - a21 * d002 + a22 * d001);
 	}
 
+	public float determinant() {
+		float a00 = this.m00;
+		float a01 = this.m01;
+		float a02 = this.m02;
+		float a03 = this.m03;
+		float a10 = this.m10;
+		float a11 = this.m11;
+		float a12 = this.m12;
+		float a13 = this.m13;
+		float a20 = this.m20;
+		float a21 = this.m21;
+		float a22 = this.m22;
+		float a23 = this.m23;
+		float a30 = this.m30;
+		float a31 = this.m31;
+		float a32 = this.m32;
+		float a33 = this.m33;
+		float d001 = a00 * a11 - a01 * a10;
+		float d002 = a00 * a12 - a02 * a10;
+		float d003 = a00 * a13 - a03 * a10;
+		float d012 = a01 * a12 - a02 * a11;
+		float d013 = a01 * a13 - a03 * a11;
+		float d023 = a02 * a13 - a03 * a12;
+		float d101 = a20 * a31 - a21 * a30;
+		float d102 = a20 * a32 - a22 * a30;
+		float d103 = a20 * a33 - a23 * a30;
+		float d112 = a21 * a32 - a22 * a31;
+		float d113 = a21 * a33 - a23 * a31;
+		float d123 = a22 * a33 - a23 * a32;
+		return d001 * d123 - d002 * d113 + d003 * d112 + d012 * d103 - d013 * d102 + d023 * d101;
+	}
 
 	public void transpose() {
 		float f = this.m10;
