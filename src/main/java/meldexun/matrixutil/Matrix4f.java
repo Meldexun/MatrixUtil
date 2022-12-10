@@ -50,23 +50,23 @@ public class Matrix4f {
 		if (this == obj) {
 			return true;
 		} else if (obj != null && this.getClass() == obj.getClass()) {
-			Matrix4f matrix4f = (Matrix4f) obj;
-			return Float.compare(matrix4f.m00, this.m00) == 0
-					&& Float.compare(matrix4f.m01, this.m01) == 0
-					&& Float.compare(matrix4f.m02, this.m02) == 0
-					&& Float.compare(matrix4f.m03, this.m03) == 0
-					&& Float.compare(matrix4f.m10, this.m10) == 0
-					&& Float.compare(matrix4f.m11, this.m11) == 0
-					&& Float.compare(matrix4f.m12, this.m12) == 0
-					&& Float.compare(matrix4f.m13, this.m13) == 0
-					&& Float.compare(matrix4f.m20, this.m20) == 0
-					&& Float.compare(matrix4f.m21, this.m21) == 0
-					&& Float.compare(matrix4f.m22, this.m22) == 0
-					&& Float.compare(matrix4f.m23, this.m23) == 0
-					&& Float.compare(matrix4f.m30, this.m30) == 0
-					&& Float.compare(matrix4f.m31, this.m31) == 0
-					&& Float.compare(matrix4f.m32, this.m32) == 0
-					&& Float.compare(matrix4f.m33, this.m33) == 0;
+			Matrix4f matrix = (Matrix4f) obj;
+			return Float.compare(matrix.m00, this.m00) == 0
+					&& Float.compare(matrix.m01, this.m01) == 0
+					&& Float.compare(matrix.m02, this.m02) == 0
+					&& Float.compare(matrix.m03, this.m03) == 0
+					&& Float.compare(matrix.m10, this.m10) == 0
+					&& Float.compare(matrix.m11, this.m11) == 0
+					&& Float.compare(matrix.m12, this.m12) == 0
+					&& Float.compare(matrix.m13, this.m13) == 0
+					&& Float.compare(matrix.m20, this.m20) == 0
+					&& Float.compare(matrix.m21, this.m21) == 0
+					&& Float.compare(matrix.m22, this.m22) == 0
+					&& Float.compare(matrix.m23, this.m23) == 0
+					&& Float.compare(matrix.m30, this.m30) == 0
+					&& Float.compare(matrix.m31, this.m31) == 0
+					&& Float.compare(matrix.m32, this.m32) == 0
+					&& Float.compare(matrix.m33, this.m33) == 0;
 		} else {
 			return false;
 		}
@@ -471,26 +471,26 @@ public class Matrix4f {
 
 	public static Matrix4f perspective(double fov, float aspectRatio, float nearPlane, float farPlane) {
 		float f = (float) (1.0D / Math.tan(Math.toRadians(fov) * 0.5D));
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.m00 = f / aspectRatio;
-		matrix4f.m11 = f;
-		matrix4f.m22 = (farPlane + nearPlane) / (nearPlane - farPlane);
-		matrix4f.m32 = -1.0F;
-		matrix4f.m23 = 2.0F * farPlane * nearPlane / (nearPlane - farPlane);
-		return matrix4f;
+		Matrix4f matrix = new Matrix4f();
+		matrix.m00 = f / aspectRatio;
+		matrix.m11 = f;
+		matrix.m22 = (farPlane + nearPlane) / (nearPlane - farPlane);
+		matrix.m32 = -1.0F;
+		matrix.m23 = 2.0F * farPlane * nearPlane / (nearPlane - farPlane);
+		return matrix;
 	}
 
 	public static Matrix4f orthographic(float width, float height, float nearPlane, float farPlane) {
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.m00 = 2.0F / width;
-		matrix4f.m11 = 2.0F / height;
+		Matrix4f matrix = new Matrix4f();
+		matrix.m00 = 2.0F / width;
+		matrix.m11 = 2.0F / height;
 		float f = farPlane - nearPlane;
-		matrix4f.m22 = -2.0F / f;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m03 = -1.0F;
-		matrix4f.m13 = -1.0F;
-		matrix4f.m23 = -(farPlane + nearPlane) / f;
-		return matrix4f;
+		matrix.m22 = -2.0F / f;
+		matrix.m33 = 1.0F;
+		matrix.m03 = -1.0F;
+		matrix.m13 = -1.0F;
+		matrix.m23 = -(farPlane + nearPlane) / f;
+		return matrix;
 	}
 
 	public Matrix4f copy() {
@@ -498,37 +498,37 @@ public class Matrix4f {
 	}
 
 	public static Matrix4f createIdentityMatrix() {
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.m00 = 1.0F;
-		matrix4f.m11 = 1.0F;
-		matrix4f.m22 = 1.0F;
-		matrix4f.m33 = 1.0F;
-		return matrix4f;
+		Matrix4f matrix = new Matrix4f();
+		matrix.m00 = 1.0F;
+		matrix.m11 = 1.0F;
+		matrix.m22 = 1.0F;
+		matrix.m33 = 1.0F;
+		return matrix;
 	}
 
 	public static Matrix4f createScaleMatrix(float x, float y, float z) {
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.m00 = x;
-		matrix4f.m11 = y;
-		matrix4f.m22 = z;
-		matrix4f.m33 = 1.0F;
-		return matrix4f;
+		Matrix4f matrix = new Matrix4f();
+		matrix.m00 = x;
+		matrix.m11 = y;
+		matrix.m22 = z;
+		matrix.m33 = 1.0F;
+		return matrix;
 	}
 
 	public static Matrix4f createTranslateMatrix(float x, float y, float z) {
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.m00 = 1.0F;
-		matrix4f.m11 = 1.0F;
-		matrix4f.m22 = 1.0F;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m03 = x;
-		matrix4f.m13 = y;
-		matrix4f.m23 = z;
-		return matrix4f;
+		Matrix4f matrix = new Matrix4f();
+		matrix.m00 = 1.0F;
+		matrix.m11 = 1.0F;
+		matrix.m22 = 1.0F;
+		matrix.m33 = 1.0F;
+		matrix.m03 = x;
+		matrix.m13 = y;
+		matrix.m23 = z;
+		return matrix;
 	}
 
 	public static Matrix4f createRotateMatrix(Quaternion quaternion) {
-		Matrix4f matrix4f = new Matrix4f();
+		Matrix4f matrix = new Matrix4f();
 		float xx = 2.0F * quaternion.x * quaternion.x;
 		float yy = 2.0F * quaternion.y * quaternion.y;
 		float zz = 2.0F * quaternion.z * quaternion.z;
@@ -539,59 +539,59 @@ public class Matrix4f {
 		float yw = quaternion.y * quaternion.w;
 		float zw = quaternion.z * quaternion.w;
 
-		matrix4f.m00 = 1.0F - yy - zz;
-		matrix4f.m11 = 1.0F - zz - xx;
-		matrix4f.m22 = 1.0F - xx - yy;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m10 = 2.0F * (xy + zw);
-		matrix4f.m01 = 2.0F * (xy - zw);
-		matrix4f.m20 = 2.0F * (zx - yw);
-		matrix4f.m02 = 2.0F * (zx + yw);
-		matrix4f.m21 = 2.0F * (yz + xw);
-		matrix4f.m12 = 2.0F * (yz - xw);
-		return matrix4f;
+		matrix.m00 = 1.0F - yy - zz;
+		matrix.m11 = 1.0F - zz - xx;
+		matrix.m22 = 1.0F - xx - yy;
+		matrix.m33 = 1.0F;
+		matrix.m10 = 2.0F * (xy + zw);
+		matrix.m01 = 2.0F * (xy - zw);
+		matrix.m20 = 2.0F * (zx - yw);
+		matrix.m02 = 2.0F * (zx + yw);
+		matrix.m21 = 2.0F * (yz + xw);
+		matrix.m12 = 2.0F * (yz - xw);
+		return matrix;
 	}
 
 	public static Matrix4f createRotateXMatrix(Quaternion quaternion) {
-		Matrix4f matrix4f = new Matrix4f();
+		Matrix4f matrix = new Matrix4f();
 		float xx = 2.0F * quaternion.x * quaternion.x;
 		float xw = quaternion.x * quaternion.w;
 
-		matrix4f.m00 = 1.0F;
-		matrix4f.m11 = 1.0F - xx;
-		matrix4f.m22 = 1.0F - xx;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m21 = 2.0F * xw;
-		matrix4f.m12 = 2.0F * -xw;
-		return matrix4f;
+		matrix.m00 = 1.0F;
+		matrix.m11 = 1.0F - xx;
+		matrix.m22 = 1.0F - xx;
+		matrix.m33 = 1.0F;
+		matrix.m21 = 2.0F * xw;
+		matrix.m12 = 2.0F * -xw;
+		return matrix;
 	}
 
 	public static Matrix4f createRotateYMatrix(Quaternion quaternion) {
-		Matrix4f matrix4f = new Matrix4f();
+		Matrix4f matrix = new Matrix4f();
 		float yy = 2.0F * quaternion.y * quaternion.y;
 		float yw = quaternion.y * quaternion.w;
 
-		matrix4f.m00 = 1.0F - yy;
-		matrix4f.m11 = 1.0F;
-		matrix4f.m22 = 1.0F - yy;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m20 = 2.0F * -yw;
-		matrix4f.m02 = 2.0F * yw;
-		return matrix4f;
+		matrix.m00 = 1.0F - yy;
+		matrix.m11 = 1.0F;
+		matrix.m22 = 1.0F - yy;
+		matrix.m33 = 1.0F;
+		matrix.m20 = 2.0F * -yw;
+		matrix.m02 = 2.0F * yw;
+		return matrix;
 	}
 
 	public static Matrix4f createRotateZMatrix(Quaternion quaternion) {
-		Matrix4f matrix4f = new Matrix4f();
+		Matrix4f matrix = new Matrix4f();
 		float zz = 2.0F * quaternion.z * quaternion.z;
 		float zw = quaternion.z * quaternion.w;
 
-		matrix4f.m00 = 1.0F - zz;
-		matrix4f.m11 = 1.0F - zz;
-		matrix4f.m22 = 1.0F;
-		matrix4f.m33 = 1.0F;
-		matrix4f.m10 = 2.0F * zw;
-		matrix4f.m01 = 2.0F * -zw;
-		return matrix4f;
+		matrix.m00 = 1.0F - zz;
+		matrix.m11 = 1.0F - zz;
+		matrix.m22 = 1.0F;
+		matrix.m33 = 1.0F;
+		matrix.m10 = 2.0F * zw;
+		matrix.m01 = 2.0F * -zw;
+		return matrix;
 	}
 
 	public void translate(float x, float y, float z) {
