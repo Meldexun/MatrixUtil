@@ -1,7 +1,5 @@
 package meldexun.matrixutil;
 
-import net.minecraft.util.math.MathHelper;
-
 public class Quaternion {
 
 	public float x;
@@ -56,23 +54,23 @@ public class Quaternion {
 
 	public static Quaternion createRotate(float radian, float x, float y, float z) {
 		radian *= 0.5F;
-		float q = MathHelper.sin(radian);
-		return new Quaternion(x * q, y * q, z * q, MathHelper.cos(radian));
+		float q = (float) MathUtil.sin(radian);
+		return new Quaternion(x * q, y * q, z * q, (float) MathUtil.cos(radian));
 	}
 
 	public static Quaternion createRotateX(float radian) {
 		radian *= 0.5F;
-		return new Quaternion(MathHelper.sin(radian), 0.0F, 0.0F, MathHelper.cos(radian));
+		return new Quaternion((float) MathUtil.sin(radian), 0.0F, 0.0F, (float) MathUtil.cos(radian));
 	}
 
 	public static Quaternion createRotateY(float radian) {
 		radian *= 0.5F;
-		return new Quaternion(0.0F, MathHelper.sin(radian), 0.0F, MathHelper.cos(radian));
+		return new Quaternion(0.0F, (float) MathUtil.sin(radian), 0.0F, (float) MathUtil.cos(radian));
 	}
 
 	public static Quaternion createRotateZ(float radian) {
 		radian *= 0.5F;
-		return new Quaternion(0.0F, 0.0F, MathHelper.sin(radian), MathHelper.cos(radian));
+		return new Quaternion(0.0F, 0.0F, (float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
 	}
 
 	public void multiply(Quaternion quaternion) {
@@ -92,14 +90,14 @@ public class Quaternion {
 
 	public void rotate(float radian, float x, float y, float z) {
 		radian *= 0.5F;
-		float q = MathHelper.sin(radian);
-		this.multiply(x * q, y * q, z * q, MathHelper.cos(radian));
+		float q = (float) MathUtil.sin(radian);
+		this.multiply(x * q, y * q, z * q, (float) MathUtil.cos(radian));
 	}
 
 	public void rotateX(float radian) {
 		radian *= 0.5F;
-		float x = MathHelper.sin(radian);
-		float w = MathHelper.cos(radian);
+		float x = (float) MathUtil.sin(radian);
+		float w = (float) MathUtil.cos(radian);
 		float x0 = this.x;
 		float y0 = this.y;
 		float z0 = this.z;
@@ -112,8 +110,8 @@ public class Quaternion {
 
 	public void rotateY(float radian) {
 		radian *= 0.5F;
-		float y = MathHelper.sin(radian);
-		float w = MathHelper.cos(radian);
+		float y = (float) MathUtil.sin(radian);
+		float w = (float) MathUtil.cos(radian);
 		float x0 = this.x;
 		float y0 = this.y;
 		float z0 = this.z;
@@ -126,8 +124,8 @@ public class Quaternion {
 
 	public void rotateZ(float radian) {
 		radian *= 0.5F;
-		float z = MathHelper.sin(radian);
-		float w = MathHelper.cos(radian);
+		float z = (float) MathUtil.sin(radian);
+		float w = (float) MathUtil.cos(radian);
 		float x0 = this.x;
 		float y0 = this.y;
 		float z0 = this.z;
