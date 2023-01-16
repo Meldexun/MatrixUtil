@@ -1,28 +1,13 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
+plugins {
+    id 'java'
+    id 'eclipse'
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
 
-version = '1.12.2-1.1.0'
+version = '1.1.0'
 group = 'meldexun.matrixutil'
 archivesBaseName = 'MatrixUtil'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
-minecraft {
-    mappings channel: 'stable', version: '39-1.12'
-}
-
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
-}
 
 jar {
     manifest.attributes([
@@ -36,5 +21,3 @@ jar {
         'Implementation-Timestamp': new Date().format("yyyy-MM-dd HH:mm:ss")
     ])
 }
-
-jar.finalizedBy('reobfJar')
