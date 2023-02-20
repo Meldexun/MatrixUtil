@@ -87,8 +87,11 @@ public class Matrix3f {
 	}
 
 	public void store(FloatBuffer buf) {
+		store(MemoryUtil.getAddress(buf));
+	}
+
+	public void store(long addr) {
 		Unsafe unsafe = UnsafeUtil.UNSAFE;
-		long addr = MemoryUtil.getAddress(buf);
 		unsafe.putFloat(addr, this.m00);
 		unsafe.putFloat(addr + 4, this.m10);
 		unsafe.putFloat(addr + 8, this.m20);
@@ -101,8 +104,11 @@ public class Matrix3f {
 	}
 
 	public void load(FloatBuffer buf) {
+		load(MemoryUtil.getAddress(buf));
+	}
+
+	public void load(long addr) {
 		Unsafe unsafe = UnsafeUtil.UNSAFE;
-		long addr = MemoryUtil.getAddress(buf);
 		this.m00 = unsafe.getFloat(addr);
 		this.m10 = unsafe.getFloat(addr + 4);
 		this.m20 = unsafe.getFloat(addr + 8);
