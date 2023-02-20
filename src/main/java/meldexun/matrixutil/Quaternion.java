@@ -52,6 +52,10 @@ public class Quaternion {
 		return stringbuilder.toString();
 	}
 
+	public static Quaternion createIdentity() {
+		return new Quaternion(0.0F, 0.0F, 0.0F, 1.0F);
+	}
+
 	public static Quaternion createRotate(float radian, float x, float y, float z) {
 		radian *= 0.5F;
 		float q = (float) MathUtil.sin(radian);
