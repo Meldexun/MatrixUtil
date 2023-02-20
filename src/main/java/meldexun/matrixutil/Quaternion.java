@@ -77,6 +77,13 @@ public class Quaternion {
 		return new Quaternion(0.0F, 0.0F, (float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
 	}
 
+	public void setIndentity() {
+		this.x = 0.0F;
+		this.y = 0.0F;
+		this.z = 0.0F;
+		this.w = 1.0F;
+	}
+
 	public void multiply(Quaternion quaternion) {
 		this.multiply(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 	}
