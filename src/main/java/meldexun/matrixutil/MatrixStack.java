@@ -27,6 +27,10 @@ public class MatrixStack {
 		return this.last.normalMatrix();
 	}
 
+	public void setIdentity() {
+		this.last.setIdentity();
+	}
+
 	public void translate(float x, float y, float z) {
 		this.last.translate(x, y, z);
 	}
@@ -73,6 +77,11 @@ public class MatrixStack {
 
 		public Matrix3f normalMatrix() {
 			return this.normalMatrix;
+		}
+
+		public void setIdentity() {
+			this.modelMatrix.setIdentity();
+			this.normalMatrix.setIdentity();
 		}
 
 		public void translate(float x, float y, float z) {
