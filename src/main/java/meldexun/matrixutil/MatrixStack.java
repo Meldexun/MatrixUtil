@@ -31,6 +31,10 @@ public class MatrixStack {
 		this.last.setIdentity();
 	}
 
+	public void copyFrom(Entry entry) {
+		this.last.copyFrom(entry);
+	}
+
 	public void translate(float x, float y, float z) {
 		this.last.translate(x, y, z);
 	}
@@ -82,6 +86,11 @@ public class MatrixStack {
 		public void setIdentity() {
 			this.modelMatrix.setIdentity();
 			this.normalMatrix.setIdentity();
+		}
+
+		public void copyFrom(Entry entry) {
+			this.modelMatrix.copyFrom(entry.modelMatrix);
+			this.normalMatrix.copyFrom(entry.normalMatrix);
 		}
 
 		public void translate(float x, float y, float z) {
