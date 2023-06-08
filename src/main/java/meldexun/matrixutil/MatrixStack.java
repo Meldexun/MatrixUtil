@@ -39,6 +39,10 @@ public class MatrixStack {
 		this.last.translate(x, y, z);
 	}
 
+	public void scale(float f) {
+		this.last.scale(f);
+	}
+
 	public void scale(float x, float y, float z) {
 		this.last.scale(x, y, z);
 	}
@@ -95,6 +99,10 @@ public class MatrixStack {
 
 		public void translate(float x, float y, float z) {
 			this.modelMatrix.translate(x, y, z);
+		}
+
+		public void scale(float f) {
+			this.scale(f, f, f);
 		}
 
 		public void scale(float x, float y, float z) {
