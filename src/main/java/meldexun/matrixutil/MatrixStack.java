@@ -2,17 +2,21 @@ package meldexun.matrixutil;
 
 public class MatrixStack {
 
-	private Entry last = new Entry(Matrix4f.createIdentityMatrix(), Matrix3f.createIdentityMatrix());
+	private Entry last = new Entry();
 
 	public void push() {
-		this.last = new Entry(this.last);
+		if (this.last.next == null) {
+			this.last = (this.last.next = new Entry(this.last));
+		} else {
+			(this.last = this.last.next).copyFrom(this.last.prev);
+		}
 	}
 
 	public void pop() {
-		if (this.last.parent == null) {
+		if (this.last.prev == null) {
 			throw new IllegalStateException();
 		}
-		this.last = this.last.parent;
+		this.last = this.last.prev;
 	}
 
 	public Entry last() {
@@ -65,18 +69,20 @@ public class MatrixStack {
 
 	public static class Entry {
 
-		public final Matrix4f modelMatrix;
-		public final Matrix3f normalMatrix;
-		private Entry parent;
+		private final Matrix4f modelMatrix;
+		private final Matrix3f normalMatrix;
+		private Entry prev;
+		private Entry next;
 
-		public Entry(Matrix4f positionMatrix, Matrix3f normalMatrix) {
-			this.modelMatrix = positionMatrix;
-			this.normalMatrix = normalMatrix;
+		public Entry() {
+			this.modelMatrix = Matrix4f.createIdentityMatrix();
+			this.normalMatrix = Matrix3f.createIdentityMatrix();
 		}
 
-		public Entry(Entry parent) {
-			this(parent.modelMatrix.copy(), parent.normalMatrix.copy());
-			this.parent = parent;
+		public Entry(Entry prev) {
+			this.modelMatrix = prev.modelMatrix.copy();
+			this.normalMatrix = prev.normalMatrix.copy();
+			this.prev = prev;
 		}
 
 		public Matrix4f modelMatrix() {
