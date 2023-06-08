@@ -176,6 +176,25 @@ public class Matrix4f {
 		this.m33 = unsafe.getFloat(addr + 60);
 	}
 
+	public void copyFrom(Matrix4f matrix) {
+		this.m00 = matrix.m00;
+		this.m01 = matrix.m01;
+		this.m02 = matrix.m02;
+		this.m03 = matrix.m03;
+		this.m10 = matrix.m10;
+		this.m11 = matrix.m11;
+		this.m12 = matrix.m12;
+		this.m13 = matrix.m13;
+		this.m20 = matrix.m20;
+		this.m21 = matrix.m21;
+		this.m22 = matrix.m22;
+		this.m23 = matrix.m23;
+		this.m30 = matrix.m30;
+		this.m31 = matrix.m31;
+		this.m32 = matrix.m32;
+		this.m33 = matrix.m33;
+	}
+
 	public void setIdentity() {
 		this.m00 = 1.0F;
 		this.m01 = 0.0F;
