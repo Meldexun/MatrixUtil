@@ -2,6 +2,8 @@ package meldexun.matrixutil;
 
 import java.nio.FloatBuffer;
 
+import meldexun.memoryutil.NIOBufferUtil;
+import meldexun.memoryutil.UnsafeUtil;
 import sun.misc.Unsafe;
 
 public class Matrix4f {
@@ -129,7 +131,7 @@ public class Matrix4f {
 	}
 
 	public void store(FloatBuffer buf) {
-		store(MemoryUtil.getAddress(buf));
+		store(NIOBufferUtil.getAddress(buf));
 	}
 
 	public void store(long addr) {
@@ -153,7 +155,7 @@ public class Matrix4f {
 	}
 
 	public void load(FloatBuffer buf) {
-		load(MemoryUtil.getAddress(buf));
+		load(NIOBufferUtil.getAddress(buf));
 	}
 
 	public void load(long addr) {

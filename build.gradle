@@ -9,6 +9,22 @@ archivesBaseName = 'MatrixUtil'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
+repositories {
+    ivy {
+        url 'https://github.com/'
+
+        patternLayout {
+            artifact '[organisation]/[module]/releases/download/v[revision]/[module]-[revision].[ext]'
+        }
+
+        metadataSources { artifact() }
+    }
+}
+
+dependencies {
+    implementation 'meldexun:MemoryUtil:1.0.0@jar'
+}
+
 jar {
     manifest.attributes([
         'Built-By': 'Meldexun',
