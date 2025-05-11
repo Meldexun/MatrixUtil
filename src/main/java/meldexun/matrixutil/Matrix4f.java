@@ -508,15 +508,18 @@ public class Matrix4f {
 	}
 
 	public static Matrix4f orthographic(float width, float height, float nearPlane, float farPlane) {
+		return orthographic(-width * 0.5F, width * 0.5F, -height * 0.5F, height * 0.5F, nearPlane, farPlane);
+	}
+
+	public static Matrix4f orthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane) {
 		Matrix4f matrix = new Matrix4f();
-		matrix.m00 = 2.0F / width;
-		matrix.m11 = 2.0F / height;
-		float f = farPlane - nearPlane;
-		matrix.m22 = -2.0F / f;
+		matrix.m00 = 2.0F / (right - left);
+		matrix.m11 = 2.0F / (top - bottom);
+		matrix.m22 = -2.0F / (farPlane - nearPlane);
+		matrix.m03 = -(right + left) / (right - left);
+		matrix.m13 = -(top + bottom) / (top - bottom);
+		matrix.m23 = -(farPlane + nearPlane) / (farPlane - nearPlane);
 		matrix.m33 = 1.0F;
-		matrix.m03 = -1.0F;
-		matrix.m13 = -1.0F;
-		matrix.m23 = -(farPlane + nearPlane) / f;
 		return matrix;
 	}
 
