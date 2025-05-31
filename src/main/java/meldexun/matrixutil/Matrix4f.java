@@ -558,16 +558,53 @@ public class Matrix4f {
 	}
 
 	public static Matrix4f createRotateMatrix(Quaternion quaternion) {
+		return createRotateXYZMatrix(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+	}
+
+	public static Matrix4f createRotateXMatrix(Quaternion quaternion) {
+		return createRotateXMatrix(quaternion.x, quaternion.w);
+	}
+
+	public static Matrix4f createRotateYMatrix(Quaternion quaternion) {
+		return createRotateYMatrix(quaternion.y, quaternion.w);
+	}
+
+	public static Matrix4f createRotateZMatrix(Quaternion quaternion) {
+		return createRotateZMatrix(quaternion.z, quaternion.w);
+	}
+
+	public static Matrix4f createRotateMatrix(float radian, float x, float y, float z) {
+		radian *= 0.5F;
+		float q = (float) MathUtil.sin(radian);
+		return createRotateXYZMatrix(x * q, y * q, z * q, (float) MathUtil.cos(radian));
+	}
+
+	public static Matrix4f createRotateXMatrix(float radian) {
+		radian *= 0.5F;
+		return createRotateXMatrix((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	public static Matrix4f createRotateYMatrix(float radian) {
+		radian *= 0.5F;
+		return createRotateYMatrix((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	public static Matrix4f createRotateZMatrix(float radian) {
+		radian *= 0.5F;
+		return createRotateZMatrix((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	static Matrix4f createRotateXYZMatrix(float qx, float qy, float qz, float qw) {
 		Matrix4f matrix = new Matrix4f();
-		float xx = 2.0F * quaternion.x * quaternion.x;
-		float yy = 2.0F * quaternion.y * quaternion.y;
-		float zz = 2.0F * quaternion.z * quaternion.z;
-		float xy = quaternion.x * quaternion.y;
-		float yz = quaternion.y * quaternion.z;
-		float zx = quaternion.z * quaternion.x;
-		float xw = quaternion.x * quaternion.w;
-		float yw = quaternion.y * quaternion.w;
-		float zw = quaternion.z * quaternion.w;
+		float xx = 2.0F * qx * qx;
+		float yy = 2.0F * qy * qy;
+		float zz = 2.0F * qz * qz;
+		float xy = qx * qy;
+		float yz = qy * qz;
+		float zx = qz * qx;
+		float xw = qx * qw;
+		float yw = qy * qw;
+		float zw = qz * qw;
 
 		matrix.m00 = 1.0F - yy - zz;
 		matrix.m11 = 1.0F - zz - xx;
@@ -582,10 +619,10 @@ public class Matrix4f {
 		return matrix;
 	}
 
-	public static Matrix4f createRotateXMatrix(Quaternion quaternion) {
+	static Matrix4f createRotateXMatrix(float qx, float qw) {
 		Matrix4f matrix = new Matrix4f();
-		float xx = 2.0F * quaternion.x * quaternion.x;
-		float xw = quaternion.x * quaternion.w;
+		float xx = 2.0F * qx * qx;
+		float xw = qx * qw;
 
 		matrix.m00 = 1.0F;
 		matrix.m11 = 1.0F - xx;
@@ -596,10 +633,10 @@ public class Matrix4f {
 		return matrix;
 	}
 
-	public static Matrix4f createRotateYMatrix(Quaternion quaternion) {
+	static Matrix4f createRotateYMatrix(float qy, float qw) {
 		Matrix4f matrix = new Matrix4f();
-		float yy = 2.0F * quaternion.y * quaternion.y;
-		float yw = quaternion.y * quaternion.w;
+		float yy = 2.0F * qy * qy;
+		float yw = qy * qw;
 
 		matrix.m00 = 1.0F - yy;
 		matrix.m11 = 1.0F;
@@ -610,10 +647,10 @@ public class Matrix4f {
 		return matrix;
 	}
 
-	public static Matrix4f createRotateZMatrix(Quaternion quaternion) {
+	static Matrix4f createRotateZMatrix(float qz, float qw) {
 		Matrix4f matrix = new Matrix4f();
-		float zz = 2.0F * quaternion.z * quaternion.z;
-		float zw = quaternion.z * quaternion.w;
+		float zz = 2.0F * qz * qz;
+		float zw = qz * qw;
 
 		matrix.m00 = 1.0F - zz;
 		matrix.m11 = 1.0F - zz;
@@ -647,16 +684,53 @@ public class Matrix4f {
 	}
 
 	public void rotate(Quaternion quaternion) {
+		rotateXYZ(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+	}
+
+	public void rotateX(Quaternion quaternion) {
+		rotateX(quaternion.x, quaternion.w);
+	}
+
+	public void rotateY(Quaternion quaternion) {
+		rotateY(quaternion.y, quaternion.w);
+	}
+
+	public void rotateZ(Quaternion quaternion) {
+		rotateZ(quaternion.z, quaternion.w);
+	}
+
+	public void rotate(float radian, float x, float y, float z) {
+		radian *= 0.5F;
+		float q = (float) MathUtil.sin(radian);
+		rotateXYZ(x * q, y * q, z * q, (float) MathUtil.cos(radian));
+	}
+
+	public void rotateX(float radian) {
+		radian *= 0.5F;
+		rotateX((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	public void rotateY(float radian) {
+		radian *= 0.5F;
+		rotateY((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	public void rotateZ(float radian) {
+		radian *= 0.5F;
+		rotateZ((float) MathUtil.sin(radian), (float) MathUtil.cos(radian));
+	}
+
+	void rotateXYZ(float qx, float qy, float qz, float qw) {
 		// setup rotation matrix
-		float xx = 2.0F * quaternion.x * quaternion.x;
-		float yy = 2.0F * quaternion.y * quaternion.y;
-		float zz = 2.0F * quaternion.z * quaternion.z;
-		float xy = quaternion.x * quaternion.y;
-		float yz = quaternion.y * quaternion.z;
-		float zx = quaternion.z * quaternion.x;
-		float xw = quaternion.x * quaternion.w;
-		float yw = quaternion.y * quaternion.w;
-		float zw = quaternion.z * quaternion.w;
+		float xx = 2.0F * qx * qx;
+		float yy = 2.0F * qy * qy;
+		float zz = 2.0F * qz * qz;
+		float xy = qx * qy;
+		float yz = qy * qz;
+		float zx = qz * qx;
+		float xw = qx * qw;
+		float yw = qy * qw;
+		float zw = qz * qw;
 
 		float r00 = 1.0F - yy - zz;
 		float r11 = 1.0F - zz - xx;
@@ -696,10 +770,10 @@ public class Matrix4f {
 		this.m32 = f30 * r02 + f31 * r12 + f32 * r22;
 	}
 
-	public void rotateX(Quaternion quaternion) {
+	void rotateX(float qx, float qw) {
 		// setup rotation matrix
-		float xx = 2.0F * quaternion.x * quaternion.x;
-		float xw = quaternion.x * quaternion.w;
+		float xx = 2.0F * qx * qx;
+		float xw = qx * qw;
 
 		float r11 = 1.0F - xx;
 		float r22 = 1.0F - xx;
@@ -726,10 +800,10 @@ public class Matrix4f {
 		this.m32 = f31 * r12 + f32 * r22;
 	}
 
-	public void rotateY(Quaternion quaternion) {
+	void rotateY(float qy, float qw) {
 		// setup rotation matrix
-		float yy = 2.0F * quaternion.y * quaternion.y;
-		float yw = quaternion.y * quaternion.w;
+		float yy = 2.0F * qy * qy;
+		float yw = qy * qw;
 
 		float r00 = 1.0F - yy;
 		float r22 = 1.0F - yy;
@@ -756,10 +830,10 @@ public class Matrix4f {
 		this.m32 = f30 * r02 + f32 * r22;
 	}
 
-	public void rotateZ(Quaternion quaternion) {
+	void rotateZ(float qz, float qw) {
 		// setup rotation matrix
-		float zz = 2.0F * quaternion.z * quaternion.z;
-		float zw = quaternion.z * quaternion.w;
+		float zz = 2.0F * qz * qz;
+		float zw = qz * qw;
 
 		float r00 = 1.0F - zz;
 		float r11 = 1.0F - zz;
