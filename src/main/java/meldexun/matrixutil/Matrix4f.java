@@ -860,4 +860,36 @@ public class Matrix4f {
 		this.m31 = f30 * r01 + f31 * r11;
 	}
 
+	public float transformX(float x, float y, float z, float w) {
+		return this.m00 * x + this.m01 * y + this.m02 * z + this.m03 * w;
+	}
+
+	public float transformY(float x, float y, float z, float w) {
+		return this.m10 * x + this.m11 * y + this.m12 * z + this.m13 * w;
+	}
+
+	public float transformZ(float x, float y, float z, float w) {
+		return this.m20 * x + this.m21 * y + this.m22 * z + this.m23 * w;
+	}
+
+	public float transformW(float x, float y, float z, float w) {
+		return this.m30 * x + this.m31 * y + this.m32 * z + this.m33 * w;
+	}
+
+	public float transformX(float x, float y, float z) {
+		return this.m00 * x + this.m01 * y + this.m02 * z + this.m03;
+	}
+
+	public float transformY(float x, float y, float z) {
+		return this.m10 * x + this.m11 * y + this.m12 * z + this.m13;
+	}
+
+	public float transformZ(float x, float y, float z) {
+		return this.m20 * x + this.m21 * y + this.m22 * z + this.m23;
+	}
+
+	public float transformW(float x, float y, float z) {
+		return this.m30 * x + this.m31 * y + this.m32 * z + this.m33;
+	}
+
 }

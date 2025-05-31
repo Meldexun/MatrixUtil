@@ -594,4 +594,16 @@ public class Matrix3f {
 		this.m21 = f20 * r01 + f21 * r11;
 	}
 
+	public float transformX(float x, float y, float z) {
+		return this.m00 * x + this.m01 * y + this.m02 * z;
+	}
+
+	public float transformY(float x, float y, float z) {
+		return this.m10 * x + this.m11 * y + this.m12 * z;
+	}
+
+	public float transformZ(float x, float y, float z) {
+		return this.m20 * x + this.m21 * y + this.m22 * z;
+	}
+
 }
