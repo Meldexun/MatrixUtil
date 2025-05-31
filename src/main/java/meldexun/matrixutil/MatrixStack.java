@@ -173,7 +173,7 @@ public class MatrixStack {
 		public void rotateX(float radian) {
 			radian *= 0.5F;
 			float qx = (float) MathUtil.sin(radian);
-			float qw = (float) MathUtil.sin(radian);
+			float qw = (float) MathUtil.cos(radian);
 			this.modelMatrix.rotateX(qx, qw);
 			this.normalMatrix.rotateX(qx, qw);
 		}
@@ -181,7 +181,7 @@ public class MatrixStack {
 		public void rotateY(float radian) {
 			radian *= 0.5F;
 			float qy = (float) MathUtil.sin(radian);
-			float qw = (float) MathUtil.sin(radian);
+			float qw = (float) MathUtil.cos(radian);
 			this.modelMatrix.rotateY(qy, qw);
 			this.normalMatrix.rotateY(qy, qw);
 		}
@@ -189,7 +189,7 @@ public class MatrixStack {
 		public void rotateZ(float radian) {
 			radian *= 0.5F;
 			float qz = (float) MathUtil.sin(radian);
-			float qw = (float) MathUtil.sin(radian);
+			float qw = (float) MathUtil.cos(radian);
 			this.modelMatrix.rotateZ(qz, qw);
 			this.normalMatrix.rotateZ(qz, qw);
 		}
